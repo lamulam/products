@@ -1,7 +1,18 @@
 
 # 練習二維 list
+# 讀取檔案
 
 products = []
+
+with open('products.csv', 'r', encoding='utf-8') as f:
+    for line in f:
+        if '商品,價格' in line:                  #不想要註解放進list中
+            continue                            #是跳成下一迴圈
+        name, price = line.strip().split(',')   #strip是砍掉換行跟空白，split是切割，內部放條件
+        products.append([name , price])
+print( products )
+
+# 讓使用者輸入
 while True:
     name = input('請輸入商品名稱:')
     if name == 'q' : # quit
@@ -20,9 +31,11 @@ while True:
 
 print('有這些商品:', products)
 
+# 印出所有購買紀錄
 for p in products:
     print( p[0], '的價格是', p[1])
 
+# 寫入檔案
 with open( 'products.csv', 'w', encoding='utf-8') as f: #要增加編碼，因為在開檔或寫檔時 編碼都是很重要
     f.write('商品,價格\n')
     for p in products:
