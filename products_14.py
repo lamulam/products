@@ -1,16 +1,22 @@
+import os
 
-# 練習二維 list
+
 # 讀取檔案
-
 products = []
+if os.path.isfile('products.csv'):
+    print('I got it')
+    with open('products.csv', 'r', encoding='utf-8') as f:
+        for line in f:
+            if '商品,價格' in line:                  #不想要註解放進list中
+                continue                            #是跳成下一迴圈
+            name, price = line.strip().split(',')   #strip是砍掉換行跟空白，split是切割，內部放條件
+            products.append([name , price])
+    print( products )
+else:
+    print('Can not find file')
 
-with open('products.csv', 'r', encoding='utf-8') as f:
-    for line in f:
-        if '商品,價格' in line:                  #不想要註解放進list中
-            continue                            #是跳成下一迴圈
-        name, price = line.strip().split(',')   #strip是砍掉換行跟空白，split是切割，內部放條件
-        products.append([name , price])
-print( products )
+
+
 
 # 讓使用者輸入
 while True:
