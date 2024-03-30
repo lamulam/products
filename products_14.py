@@ -19,3 +19,6 @@ while True:
     products.append(p)
 
 print('有這些商品:', products)
+
+for p in products:
+    print( p[0], '的價格是', p[1])
