@@ -4,18 +4,12 @@ import os
 # 讀取檔案
 def read_file(filename):
     products = []
-    if os.path.isfile(filename):
-        print('I got it')
-        with open(filename, 'r', encoding='utf-8') as f:
-            for line in f:
-                if '商品,價格' in line:                  #不想要註解放進list中
-                    continue                            #是跳成下一迴圈
-                name, price = line.strip().split(',')   #strip是砍掉換行跟空白，split是切割，內部放條件
-                products.append([name , price])
-        print( products )
-    else:
-        print('Can not find file')
-
+    with open(filename, 'r', encoding='utf-8') as f:
+        for line in f:
+            if '商品,價格' in line:                  #不想要註解放進list中
+                continue                            #是跳成下一迴圈
+            name, price = line.strip().split(',')   #strip是砍掉換行跟空白，split是切割，內部放條件
+            products.append([name , price])
     return products
 
 
@@ -51,8 +45,16 @@ def write_file(filename, products):
         for p in products:
             f.write(p[0] + ',' + str(p[1]) + '\n')
 
+def main():
+    filename = 'products.csv'
+    if os.path.isfile(filename):
+        print('fina the file')
+        products = read_file(filename)
+    else:
+        print('Can not find file')
 
-products = read_file('products.csv')
-products = user_input(products)
-print_products(products)
-write_file('products.csv', products)
+    products = user_input(products)
+    print_products(products)
+    write_file('products.csv', products)
+
+main()
